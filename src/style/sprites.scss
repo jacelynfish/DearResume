@@ -1,0 +1,394 @@
+// SCSS variables are information about icon's compiled state, stored under its original file name
+//
+// .icon-home {
+//   width: $icon-home-width;
+// }
+//
+// The large array-like variables contain all information about a single icon
+// $icon-home: x y offset_x offset_y width height total_width total_height image_path;
+//
+// At the bottom of this section, we provide information about the spritesheet itself
+// $spritesheet: width height image $spritesheet-sprites;
+$competition-name: 'competition';
+$competition-x: 0px;
+$competition-y: 0px;
+$competition-offset-x: 0px;
+$competition-offset-y: 0px;
+$competition-width: 22px;
+$competition-height: 22px;
+$competition-total-width: 138px;
+$competition-total-height: 100px;
+$competition-image: '../img/sprites.png';
+$competition: (0px, 0px, 0px, 0px, 22px, 22px, 138px, 100px, '../img/sprites.png', 'competition', );
+$demo-name: 'demo';
+$demo-x: 84px;
+$demo-y: 0px;
+$demo-offset-x: -82px;
+$demo-offset-y: 2px;
+$demo-width: 18px;
+$demo-height: 18px;
+$demo-total-width: 138px;
+$demo-total-height: 100px;
+$demo-image: '../img/sprites.png';
+$demo: (84px, 0px, -82px, 2px, 18px, 18px, 138px, 100px, '../img/sprites.png', 'demo', );
+$education-name: 'education';
+$education-x: 42px;
+$education-y: 0px;
+$education-offset-x: -42px;
+$education-offset-y: 0px;
+$education-width: 22px;
+$education-height: 22px;
+$education-total-width: 138px;
+$education-total-height: 100px;
+$education-image: '../img/sprites.png';
+$education: (42px, 0px, -42px, 0px, 22px, 22px, 138px, 100px, '../img/sprites.png', 'education', );
+$email-name: 'email';
+$email-x: 72px;
+$email-y: 84px;
+$email-offset-x: -72px;
+$email-offset-y: -84px;
+$email-width: 16px;
+$email-height: 16px;
+$email-total-width: 138px;
+$email-total-height: 100px;
+$email-image: '../img/sprites.png';
+$email: (72px, 84px, -72px, -84px, 16px, 16px, 138px, 100px, '../img/sprites.png', 'email', );
+$intern-name: 'intern';
+$intern-x: 0px;
+$intern-y: 42px;
+$intern-offset-x: 0px;
+$intern-offset-y: -42px;
+$intern-width: 22px;
+$intern-height: 22px;
+$intern-total-width: 138px;
+$intern-total-height: 100px;
+$intern-image: '../img/sprites.png';
+$intern: (0px, 42px, 0px, -42px, 22px, 22px, 138px, 100px, '../img/sprites.png', 'intern', );
+$link-name: 'link';
+$link-x: 122px;
+$link-y: 0px;
+$link-offset-x: -122px;
+$link-offset-y: 0px;
+$link-width: 16px;
+$link-height: 16px;
+$link-total-width: 138px;
+$link-total-height: 100px;
+$link-image: '../img/sprites.png';
+$link: (122px, 0px, -122px, 0px, 16px, 16px, 138px, 100px, '../img/sprites.png', 'link', );
+$phone-name: 'phone';
+$phone-x: 0px;
+$phone-y: 84px;
+$phone-offset-x: 0px;
+$phone-offset-y: -84px;
+$phone-width: 16px;
+$phone-height: 16px;
+$phone-total-width: 138px;
+$phone-total-height: 100px;
+$phone-image: '../img/sprites.png';
+$phone: (0px, 84px, 0px, -84px, 16px, 16px, 138px, 100px, '../img/sprites.png', 'phone', );
+$project-name: 'project';
+$project-x: 84px;
+$project-y: 38px;
+$project-offset-x: -82px;
+$project-offset-y: -36px;
+$project-width: 18px;
+$project-height: 18px;
+$project-total-width: 138px;
+$project-total-height: 100px;
+$project-image: '../img/sprites.png';
+$project: (84px, 38px, -82px, -36px, 18px, 18px, 138px, 100px, '../img/sprites.png', 'project', );
+$skills-name: 'skills';
+$skills-x: 42px;
+$skills-y: 42px;
+$skills-offset-x: -42px;
+$skills-offset-y: -39px;
+$skills-width: 22px;
+$skills-height: 16px;
+$skills-total-width: 138px;
+$skills-total-height: 100px;
+$skills-image: '../img/sprites.png';
+$skills: (42px, 42px, -42px, -39px, 22px, 16px, 138px, 100px, '../img/sprites.png', 'skills', );
+$star-name: 'star';
+$star-x: 122px;
+$star-y: 36px;
+$star-offset-x: -122px;
+$star-offset-y: -36px;
+$star-width: 12px;
+$star-height: 12px;
+$star-total-width: 138px;
+$star-total-height: 100px;
+$star-image: '../img/sprites.png';
+$star: (122px, 36px, -122px, -36px, 12px, 12px, 138px, 100px, '../img/sprites.png', 'star', );
+$web-name: 'web';
+$web-x: 36px;
+$web-y: 84px;
+$web-offset-x: -36px;
+$web-offset-y: -84px;
+$web-width: 16px;
+$web-height: 16px;
+$web-total-width: 138px;
+$web-total-height: 100px;
+$web-image: '../img/sprites.png';
+$web: (36px, 84px, -36px, -84px, 16px, 16px, 138px, 100px, '../img/sprites.png', 'web', );
+$competition-2x-name: 'competition@2x';
+$competition-2x-x: 0px;
+$competition-2x-y: 0px;
+$competition-2x-offset-x: 0px;
+$competition-2x-offset-y: 0px;
+$competition-2x-width: 44px;
+$competition-2x-height: 44px;
+$competition-2x-total-width: 276px;
+$competition-2x-total-height: 200px;
+$competition-2x-image: '../img/sprites@2x.png';
+$competition-2x: (0px, 0px, 0px, 0px, 44px, 44px, 276px, 200px, '../img/sprites@2x.png', 'competition@2x', );
+$demo-2x-name: 'demo@2x';
+$demo-2x-x: 168px;
+$demo-2x-y: 0px;
+$demo-2x-offset-x: -164px;
+$demo-2x-offset-y: 4px;
+$demo-2x-width: 36px;
+$demo-2x-height: 36px;
+$demo-2x-total-width: 276px;
+$demo-2x-total-height: 200px;
+$demo-2x-image: '../img/sprites@2x.png';
+$demo-2x: (168px, 0px, -164px, 4px, 36px, 36px, 276px, 200px, '../img/sprites@2x.png', 'demo@2x', );
+$education-2x-name: 'education@2x';
+$education-2x-x: 84px;
+$education-2x-y: 0px;
+$education-2x-offset-x: -84px;
+$education-2x-offset-y: 0px;
+$education-2x-width: 44px;
+$education-2x-height: 44px;
+$education-2x-total-width: 276px;
+$education-2x-total-height: 200px;
+$education-2x-image: '../img/sprites@2x.png';
+$education-2x: (84px, 0px, -84px, 0px, 44px, 44px, 276px, 200px, '../img/sprites@2x.png', 'education@2x', );
+$email-2x-name: 'email@2x';
+$email-2x-x: 144px;
+$email-2x-y: 168px;
+$email-2x-offset-x: -144px;
+$email-2x-offset-y: -168px;
+$email-2x-width: 32px;
+$email-2x-height: 32px;
+$email-2x-total-width: 276px;
+$email-2x-total-height: 200px;
+$email-2x-image: '../img/sprites@2x.png';
+$email-2x: (144px, 168px, -144px, -168px, 32px, 32px, 276px, 200px, '../img/sprites@2x.png', 'email@2x', );
+$intern-2x-name: 'intern@2x';
+$intern-2x-x: 0px;
+$intern-2x-y: 84px;
+$intern-2x-offset-x: 0px;
+$intern-2x-offset-y: -84px;
+$intern-2x-width: 44px;
+$intern-2x-height: 44px;
+$intern-2x-total-width: 276px;
+$intern-2x-total-height: 200px;
+$intern-2x-image: '../img/sprites@2x.png';
+$intern-2x: (0px, 84px, 0px, -84px, 44px, 44px, 276px, 200px, '../img/sprites@2x.png', 'intern@2x', );
+$link-2x-name: 'link@2x';
+$link-2x-x: 244px;
+$link-2x-y: 0px;
+$link-2x-offset-x: -244px;
+$link-2x-offset-y: 0px;
+$link-2x-width: 32px;
+$link-2x-height: 32px;
+$link-2x-total-width: 276px;
+$link-2x-total-height: 200px;
+$link-2x-image: '../img/sprites@2x.png';
+$link-2x: (244px, 0px, -244px, 0px, 32px, 32px, 276px, 200px, '../img/sprites@2x.png', 'link@2x', );
+$phone-2x-name: 'phone@2x';
+$phone-2x-x: 0px;
+$phone-2x-y: 168px;
+$phone-2x-offset-x: 0px;
+$phone-2x-offset-y: -168px;
+$phone-2x-width: 32px;
+$phone-2x-height: 32px;
+$phone-2x-total-width: 276px;
+$phone-2x-total-height: 200px;
+$phone-2x-image: '../img/sprites@2x.png';
+$phone-2x: (0px, 168px, 0px, -168px, 32px, 32px, 276px, 200px, '../img/sprites@2x.png', 'phone@2x', );
+$project-2x-name: 'project@2x';
+$project-2x-x: 168px;
+$project-2x-y: 76px;
+$project-2x-offset-x: -168px;
+$project-2x-offset-y: -76px;
+$project-2x-width: 36px;
+$project-2x-height: 36px;
+$project-2x-total-width: 276px;
+$project-2x-total-height: 200px;
+$project-2x-image: '../img/sprites@2x.png';
+$project-2x: (168px, 76px, -164px, -74px, 36px, 36px, 276px, 200px, '../img/sprites@2x.png', 'project@2x', );
+$skills-2x-name: 'skills@2x';
+$skills-2x-x: 84px;
+$skills-2x-y: 84px;
+$skills-2x-offset-x: -84px;
+$skills-2x-offset-y: -78px;
+$skills-2x-width: 44px;
+$skills-2x-height: 32px;
+$skills-2x-total-width: 276px;
+$skills-2x-total-height: 200px;
+$skills-2x-image: '../img/sprites@2x.png';
+$skills-2x: (84px, 84px, -84px, -78px, 44px, 32px, 276px, 200px, '../img/sprites@2x.png', 'skills@2x', );
+$star-2x-name: 'star@2x';
+$star-2x-x: 244px;
+$star-2x-y: 72px;
+$star-2x-offset-x: -244px;
+$star-2x-offset-y: -72px;
+$star-2x-width: 24px;
+$star-2x-height: 24px;
+$star-2x-total-width: 276px;
+$star-2x-total-height: 200px;
+$star-2x-image: '../img/sprites@2x.png';
+$star-2x: (244px, 72px, -244px, -72px, 24px, 24px, 276px, 200px, '../img/sprites@2x.png', 'star@2x', );
+$web-2x-name: 'web@2x';
+$web-2x-x: 72px;
+$web-2x-y: 168px;
+$web-2x-offset-x: -72px;
+$web-2x-offset-y: -168px;
+$web-2x-width: 32px;
+$web-2x-height: 32px;
+$web-2x-total-width: 276px;
+$web-2x-total-height: 200px;
+$web-2x-image: '../img/sprites@2x.png';
+$web-2x: (72px, 168px, -72px, -168px, 32px, 32px, 276px, 200px, '../img/sprites@2x.png', 'web@2x', );
+$spritesheet-width: 138px;
+$spritesheet-height: 100px;
+$spritesheet-image: '../img/sprites.png';
+$spritesheet-sprites: ($competition, $demo, $education, $email, $intern, $link, $phone, $project, $skills, $star, $web, );
+$spritesheet: (138px, 100px, '../img/sprites.png', $spritesheet-sprites, );
+$retina-spritesheet-width: 276px;
+$retina-spritesheet-height: 200px;
+$retina-spritesheet-image: '../img/sprites@2x.png';
+$retina-spritesheet-sprites: ($competition-2x, $demo-2x, $education-2x, $email-2x, $intern-2x, $link-2x, $phone-2x, $project-2x, $skills-2x, $star-2x, $web-2x, );
+$retina-spritesheet: (276px, 200px, '../img/sprites@2x.png', $retina-spritesheet-sprites, );
+
+// These "retina group" variables are mappings for the naming and pairing of normal and retina sprites.
+//
+// The list formatted variables are intended for mixins like `retina-sprite` and `retina-sprites`.
+$competition-group-name: 'competition';
+$competition-group: ('competition', $competition, $competition-2x, );
+$demo-group-name: 'demo';
+$demo-group: ('demo', $demo, $demo-2x, );
+$education-group-name: 'education';
+$education-group: ('education', $education, $education-2x, );
+$email-group-name: 'email';
+$email-group: ('email', $email, $email-2x, );
+$intern-group-name: 'intern';
+$intern-group: ('intern', $intern, $intern-2x, );
+$link-group-name: 'link';
+$link-group: ('link', $link, $link-2x, );
+$phone-group-name: 'phone';
+$phone-group: ('phone', $phone, $phone-2x, );
+$project-group-name: 'project';
+$project-group: ('project', $project, $project-2x, );
+$skills-group-name: 'skills';
+$skills-group: ('skills', $skills, $skills-2x, );
+$star-group-name: 'star';
+$star-group: ('star', $star, $star-2x, );
+$web-group-name: 'web';
+$web-group: ('web', $web, $web-2x, );
+$retina-groups: ($competition-group, $demo-group, $education-group, $email-group, $intern-group, $link-group, $phone-group, $project-group, $skills-group, $star-group, $web-group, );
+
+// The provided mixins are intended to be used with the array-like variables
+//
+// .icon-home {
+//   @include sprite-width($icon-home);
+// }
+//
+// .icon-email {
+//   @include sprite($icon-email);
+// }
+//
+// Example usage in HTML:
+//
+// `display: block` sprite:
+// <div class="icon-home"></div>
+//
+// To change `display` (e.g. `display: inline-block;`), we suggest using a common CSS class:
+//
+// // CSS
+// .icon {
+//   display: inline-block;
+// }
+//
+// // HTML
+// <i class="icon icon-home"></i>
+@mixin sprite-width($sprite) {
+  width: nth($sprite, 5);
+}
+
+@mixin sprite-height($sprite) {
+  height: nth($sprite, 6);
+}
+
+@mixin sprite-position($sprite) {
+  $sprite-offset-x: nth($sprite, 3);
+  $sprite-offset-y: nth($sprite, 4);
+  background-position: $sprite-offset-x  $sprite-offset-y;
+}
+
+@mixin sprite-image($sprite) {
+  $sprite-image: nth($sprite, 9);
+  background-image: url(#{$sprite-image});
+}
+
+@mixin sprite($sprite) {
+  @include sprite-image($sprite);
+  @include sprite-position($sprite);
+  @include sprite-width($sprite);
+  @include sprite-height($sprite);
+}
+
+// The `retina-sprite` mixin sets up rules and a media query for a sprite/retina sprite.
+//   It should be used with a "retina group" variable.
+//
+// The media query is from CSS Tricks: https://css-tricks.com/snippets/css/retina-display-media-query/
+//
+// $icon-home-group: ('icon-home', $icon-home, $icon-home-2x, );
+//
+// .icon-home {
+//   @include retina-sprite($icon-home-group);
+// }
+@mixin sprite-background-size($sprite) {
+  $sprite-total-width: nth($sprite, 7);
+  $sprite-total-height: nth($sprite, 8);
+  background-size: $sprite-total-width $sprite-total-height;
+}
+
+@mixin retina-sprite($retina-group) {
+  $normal-sprite: nth($retina-group, 2);
+  $retina-sprite: nth($retina-group, 3);
+  @include sprite($normal-sprite);
+
+  @media (-webkit-min-device-pixel-ratio: 2),
+         (min-resolution: 192dpi) {
+    @include sprite-image($retina-sprite);
+    @include sprite-background-size($normal-sprite);
+  }
+}
+
+// The `sprites` mixin generates identical output to the CSS template
+//   but can be overridden inside of SCSS
+//
+// @include sprites($spritesheet-sprites);
+@mixin sprites($sprites) {
+  @each $sprite in $sprites {
+    $sprite-name: nth($sprite, 10);
+    .#{$sprite-name} {
+      @include sprite($sprite);
+    }
+  }
+}
+
+// The `retina-sprites` mixin generates a CSS rule and media query for retina groups
+//   This yields the same output as CSS retina template but can be overridden in SCSS
+//
+// @include retina-sprites($retina-groups);
+@mixin retina-sprites($retina-groups) {
+  @each $retina-group in $retina-groups {
+    $sprite-name: nth($retina-group, 1);
+    .#{$sprite-name} {
+      @include retina-sprite($retina-group);
+    }
+  }
+}
