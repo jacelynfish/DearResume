@@ -9,7 +9,6 @@ const store = new Vuex.Store({
                 "resumeName":"我的中文简历",
                 "name":"靳鸿媛",
                 "enName":"Jacelyn",
-                "age":21,
                 "brief":"Front-end Developer",
                 "contact":{
                     "phone":"153 6376 3678",
@@ -187,7 +186,10 @@ const store = new Vuex.Store({
 
         },
         modifyBasic (state, {id, resume}){
-
+            state.resumeData[id].name = resume.name;
+            state.resumeData[id].enName = resume.enName;
+            state.resumeData[id].brief = resume.brief;
+            state.resumeData[id].contact = resume.contact;
         }
     },
     actions:{

@@ -8,7 +8,16 @@ import materialcss from './node_modules/vue-material/dist/vue-material.css';
 import router from './src/router';
 import store from './src/store';
 
+
+
 Vue.use(VueMaterial);
+
+Vue.material.registerTheme('default', {
+    primary: 'teal',
+    accent: 'red',
+    warn: 'red',
+    background: 'white'
+})
 
 var eventHub = new Vue();
 

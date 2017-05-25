@@ -164,7 +164,7 @@
         </div>
     </div>
 </template>
-<style lang="sass" scoped>
+<style lang="sass" >
     @import '../style/resume_style.scss';
 
 </style>
