@@ -21,15 +21,15 @@ const store = new Vuex.Store({
                     data:[
                         {
                             "school":"澳门科技大学",
-                            "degree":"本科",
-                            "enrollYear":2014,
-                            "eduYear":2018,
+                            "degree":"学士",
+                            "enrollYear":"2014-09-01",
+                            "eduYear":"2018-06-10",
                             "faculty":"资讯科技学院",
                             "major":"软件技术及应用",
                             "gpa":"3.73/4",
                             "rank":0,
                             "courses":"面向对象程序设计、数据结构与算法、数字电路、数据库原理及应用、编译原理、计算机组成原理、网络编程、软件工程等",
-                            "honor":[
+                            "description":[
                                 "2014-2015 学年第一、第二学期澳门科技大学资讯科技学院院长优秀生 榜(B 榜)第一名",
                                 "2016 年度澳门科技大学 ACM/ICPC 编程比赛二等奖",
                                 "2015-2016 学年第一、第二学期澳门科技大学资讯科技学院院长优秀生 榜(B 榜)第二名",
@@ -163,15 +163,12 @@ const store = new Vuex.Store({
     mutations:{
         modifyEducation (state, {id, resume}){
             state.resumeData[id].eduExperience = resume.eduExperience;
-            console.log(state.resumeData[id].eduExperience.data.length);
         },
         modifyInternship (state, {id, resume}){
             state.resumeData[id].internExperience = resume.internExperience;
-
         },
         modifyProject (state, {id, resume}){
             state.resumeData[id].projectExperience = resume.projectExperience;
-
         },
         modifyCompetition (state, {id, resume}){
             state.resumeData[id].competitionExperience = resume.competitionExperience;

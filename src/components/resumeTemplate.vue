@@ -69,8 +69,8 @@
                     </div>
                     <div class="edu-item-faculty">{{eduitem.faculty}} {{eduitem.major}}</div>
                     <div class="edu-item-des">{{eduitem.courses}}</div>
-                    <ul class="edu-item-des" v-if="eduitem.honor.length">
-                        <li v-for="honor in eduitem.honor">{{honor}}</li></ul>
+                    <ul class="edu-item-des" v-if="eduitem.description.length">
+                        <li v-for="honor in eduitem.description">{{honor}}</li></ul>
                 </div>
             </div>
             <div class="main-item" id="intern" v-if="curResume.internExperience.status">

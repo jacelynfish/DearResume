@@ -12,6 +12,9 @@
         </div>
 
         <div id="editor-container">
+
+            <!-------------------Basic 基本情况------------------->
+
             <div class="editor-item" id="basic-editor">
                 <div class="editor-item-title">
                     <h3>基本情况</h3>
@@ -19,6 +22,13 @@
                                 @click="editBtnClicked($event, moduleSelect.isBasic.isEditing, 'isBasic', 0)">{{moduleSelect.isBasic.isEditing? '保存':'编辑'}}</button>
                 </div>
             </div>
+
+
+
+
+            <!-------------------Education 教育背景------------------->
+
+
             <div class="editor-item" id="edu-editor" v-if="moduleSelect.isEducation.status">
                 <div class="editor-item-title">
                     <h3>教育背景</h3>
@@ -35,71 +45,90 @@
                     </div>
                     <div class="edu-item-faculty">{{eduitem.faculty}} {{eduitem.major}}</div>
                     <div class="edu-item-des">{{eduitem.courses}}</div>
-                    <ul class="edu-item-des" v-if="eduitem.honor.length">
-                        <li v-for="honor in eduitem.honor">{{honor}}</li>
+                    <ul class="edu-item-des" v-if="eduitem.description.length">
+                        <li v-for="honor in eduitem.description">{{honor}}</li>
                     </ul>
                 </div>
 
                 <div class="editing-panel" v-if="moduleSelect.isEducation.isEditing">
                     <div class="edu-edit-item" v-for="(eduitem, index) in backupResume.eduExperience.data">
+                        <md-button class="md-fab md-mini md-warn">
+                            <md-icon>close</md-icon>
+                        </md-button>
                         <div class="row">
                             <div class="input-field col s12 m6">
-                                <input type="text" class="validate" v-model="eduitem.school" id="edu-edit-school">
-                                <label for="edu-edit-school">学校</label>
+                                <input type="text" v-model="eduitem.school" id="edu-edit-school">
+                                <label class="active" for="edu-edit-school">学校</label>
                             </div>
-                            <div class="input-field col s12 m6">
-                                <select v-model="eduitem.degree">
-                                    <option value="高中">高中</option>
-                                    <option value="本科">本科</option>
-                                    <option value="研究生">研究生</option>
-                                    <option value="博士">博士</option>
-                                </select>
+
+                                <md-select v-model="eduitem.degree" placeholder="请选择您的学历">
+                                    <md-option value="高中">高中</md-option>
+                                    <md-option value="学士">学士</md-option>
+                                    <md-option value="学士">学士</md-option>
+                                    <md-option value="硕士">硕士</md-option>
+                                    <md-option value="博士">博士</md-option>
+                                </md-select>
                                 <label>教育程度</label>
-                            </div>
+
                         </div>
                         <div class="row">
                             <div class="input-field col s12 m6">
-                                <input type="text" class="validate" v-model="eduitem.faculty" id="edu-edit-faculty">
-                                <label for="edu-edit-faculty">学院</label>
+                                <input type="text" v-model="eduitem.faculty"
+                                       id="edu-edit-faculty" placeholder="计算机学院">
+                                <label class="active" for="edu-edit-faculty">学院</label>
                             </div>
                             <div class="input-field col s12 m6">
-                                <input type="text" class="validate" v-model="eduitem.major" id="edu-edit-major">
-                                <label for="edu-edit-major">专业</label>
+                                <input type="text"  v-model="eduitem.major"
+                                       id="edu-edit-major" placeholder="软件技术应用专业">
+                                <label class="active" for="edu-edit-major">专业</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s12 m2">
-                                <input class="validate" v-model="eduitem.gpa" id="edu-edit-gpa">
-                                <label for="edu-edit-gpa">GPA</label>
+                                <input v-model="eduitem.gpa" id="edu-edit-gpa"
+                                placeholder="3.5/4.0">
+                                <label class="active" for="edu-edit-gpa">GPA</label>
                             </div>
                             <div class="input-field col s6 m5">
                                 <input class="datepicker" type="date" v-model="eduitem.enrollYear" id="edu-edit-enrollYear">
-                                <label for="edu-edit-enrollYear">入学日期</label>
+                                <label class="active" for="edu-edit-enrollYear">入学日期</label>
                             </div>
 
                             <div class="input-field col s6 m5">
                                 <input class="datepicker" type="date" v-model="eduitem.eduYear" id="edu-edit-eduYear">
-                                <label for="edu-edit-eduYear">毕业日期</label>
+                                <label class="active" for="edu-edit-eduYear">毕业日期</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s12">
-                                <textarea class="materialize-textarea" v-model="eduitem.courses" id="edu-edit-courses"></textarea>
-                                <label for="edu-edit-courses">主修课程</label>
+                                <textarea class="materialize-textarea"
+                                          v-model="eduitem.courses"
+                                          id="edu-edit-courses"
+                                          placeholder="数据结构与算法、计算机网络"></textarea>
+                                <label class="active" for="edu-edit-courses">主修课程</label>
                             </div>
                         </div>
-                        <label>奖励</label>
-                        <ul>
-                            <li v-for="(honor, index) in eduitem.honor">
-                                <div class="input-field col s12">
-                                    <input type="text" class="" v-model="eduitem.honor[index]">
-                                </div>
-                            </li>
-                        </ul>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <textarea class="materialize-textarea"
+                                          @change="modifyDes($event, index, 'eduExperience')"
+                                          id="edu-edit-honor"
+                                            placeholder="请一行描写一个荣誉奖励，以回车分行">{{eduitem.description.join('\n')}}</textarea>
+                                <label class="active" for="edu-edit-honor">荣誉奖励</label>
+                            </div>
+                        </div>
+
                     </div>
-                    <a class="waves-effect waves-light btn" @click="addEducation">添加教育经历</a>
+                    <a class="waves-effect waves-light btn" @click="addItem('eduExperience', 1)">添加教育经历</a>
                 </div>
             </div>
+
+
+
+
+
+            <!-------------------Internship 实习经历------------------->
+
 
             <div class="editor-item" id="intern-editor" v-if="moduleSelect.isInternship.status">
                 <div class="editor-item-title">
@@ -107,7 +136,9 @@
                     <button :class="['btn', {'isEditingBtn': moduleSelect.isInternship.isEditing, 'isSavingBtn': !moduleSelect.isInternship.isEditing}]"
                             @click="editBtnClicked($event, moduleSelect.isInternship.isEditing, 'isInternship', 2)">{{moduleSelect.isInternship.isEditing? '保存':'编辑'}}</button>
                 </div>
-                <div class="intern-item" v-for="internitem in resume.internExperience.data">
+                <div class="intern-item"
+                     v-for="internitem in resume.internExperience.data"
+                     v-if="!moduleSelect.isInternship.isEditing">
                     <div class="intern-item-basic">
                         <span class="intern-company">{{internitem.company}}</span>
                         <span class="intern-location">{{internitem.location}}</span>
@@ -121,7 +152,66 @@
 
                     </ul>
                 </div>
+
+                <div class="editing-panel" v-if="moduleSelect.isInternship.isEditing">
+                    <div class="edu-edit-item" v-for="(internitem, index) in backupResume.internExperience.data">
+                        <md-button class="md-fab md-mini md-warn">
+                            <md-icon>close</md-icon>
+                        </md-button>
+                        <div class="row">
+                            <div class="input-field col s12 m6">
+                                <input type="text" v-model="internitem.company" id="intern-edit-company">
+                                <label class="active" for="intern-edit-company">公司</label>
+                            </div>
+                            <div class="input-field col s12 m6">
+                                <input type="text"
+                                       v-model="internitem.job"
+                                       id="intern-edit-job"
+                                       placeholder="机器学习工程师">
+                                <label class="active" for="intern-edit-job">职务</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12 m2">
+                                <input v-model="internitem.location" id="intern-edit-localtion"
+                                       placeholder="广州">
+                                <label class="active" for="intern-edit-localtion">地点</label>
+                            </div>
+                            <div class="input-field col s6 m5">
+                                <input class="datepicker" type="date" v-model="internitem.startDate" id="intern-edit-startDate">
+                                <label class="active" for="intern-edit-startDate">入职日期</label>
+                            </div>
+
+                            <div class="input-field col s6 m5">
+                                <input class="datepicker" type="date" v-model="internitem.endDate" id="intern-edit-endDate">
+                                <label class="active" for="intern-edit-endDate">离职日期</label>
+                            </div>
+                        </div>
+                        <div class="row" v-for="(desitem, desidx) in internitem.description">
+                            <div class="col s1" @click="delDes(index, desidx, 'internExperience')">
+                                <i class="material-icons">close</i>
+                            </div>
+                            <div class="input-field col s3">
+                                <input v-model="desitem.keyword" placeholder="职务描述">
+                            </div>
+                            <div class="input-field col s8">
+                                <input v-model="desitem.detail" placeholder="职务详情">
+                            </div>
+                        </div>
+                        <a class="waves-effect waves-teal btn-flat" @click="addDes(index, 'internExperience')">添加描述</a>
+
+                    </div>
+                    <a class="waves-effect waves-light btn" @click="addItem('internExperience', 2)">添加实习经历</a>
+                </div>
             </div>
+
+            
+
+
+
+            <!-------------------Project 项目经历------------------->
+
+
             <div class="editor-item" id="proj-editor" v-if="moduleSelect.isProject.status">
                 <div class="editor-item-title">
                     <h3>校园/项目经历</h3>
@@ -129,7 +219,9 @@
                             @click="editBtnClicked($event, moduleSelect.isProject.isEditing, 'isProject', 3)">{{moduleSelect.isProject.isEditing? '保存':'编辑'}}</button>
 
                 </div>
-                <div class="proj-item" v-for="projitem in resume.projectExperience.data">
+                <div class="proj-item"
+                     v-for="projitem in resume.projectExperience.data"
+                    v-if="!moduleSelect.isProject.isEditing">
                     <div class="proj-item-basic">
                         <span class="proj-name">{{projitem.name}}</span>
                         <span class="proj-location">{{projitem.location}}</span>
@@ -140,7 +232,63 @@
                         <li class="proj-des-item" v-for="des in projitem.description">{{des}}</li>
                     </ul>
                 </div>
+
+                <div class="editing-panel" v-if="moduleSelect.isProject.isEditing">
+                    <div class="edu-edit-item" v-for="(projectitem, index) in backupResume.projectExperience.data">
+                        <md-button class="md-fab md-mini md-warn">
+                            <md-icon>close</md-icon>
+                        </md-button>
+                        <div class="row">
+                            <div class="input-field col s12 m6">
+                                <input type="text" v-model="projectitem.name" id="project-edit-name">
+                                <label class="active" for="project-edit-name">项目名称</label>
+                            </div>
+                            <div class="input-field col s12 m6">
+                                <input type="text"
+                                       v-model="projectitem.job"
+                                       id="project-edit-job"
+                                       placeholder="机器学习工程师">
+                                <label class="active" for="project-edit-job">职务</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12 m2">
+                                <input v-model="projectitem.location" id="project-edit-localtion"
+                                       placeholder="广州">
+                                <label class="active" for="project-edit-localtion">地点</label>
+                            </div>
+                            <div class="input-field col s6 m5">
+                                <input class="datepicker" type="date" v-model="projectitem.startDate" id="project-edit-startDate">
+                                <label class="active" for="project-edit-startDate">开始日期</label>
+                            </div>
+
+                            <div class="input-field col s6 m5">
+                                <input class="datepicker" type="date" v-model="projectitem.endDate" id="project-edit-endDate">
+                                <label class="active" for="project-edit-endDate">结束日期</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <textarea class="materialize-textarea"
+                                          @change="modifyDes($event, index,'projectExperience')"
+                                          id="project-edit-des"
+                                          placeholder="每行一个描述，以回车分行">{{projectitem.description.join('\n')}}</textarea>
+                                <label class="active" for="edu-edit-honor">项目详情</label>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="waves-effect waves-light btn" @click="addItem('projectExperience', 3)">添加实习经历</a>
+                </div>
+
             </div>
+
+
+
+
+
+            <!-------------------Competition 比赛经历------------------->
+
+
             <div class="editor-item" id="competition-editor" v-if="moduleSelect.isCompetition.status">
                 <div class="editor-item-title">
                     <h3>比赛经历</h3>
@@ -148,7 +296,9 @@
                             @click="editBtnClicked($event, moduleSelect.isCompetition.isEditing, 'isCompetition', 4)">{{moduleSelect.isCompetition.isEditing? '保存':'编辑'}}</button>
 
                 </div>
-                <div class="com-item" v-for="com in resume.competitionExperience.data">
+                <div class="com-item"
+                     v-for="com in resume.competitionExperience.data"
+                     v-if="!moduleSelect.isCompetition.isEditing">
                     <div class="com-item-basic">
                         <span class="com-name">{{com.name}}</span>
                         <span class="com-duration">{{com.date}}</span>
@@ -156,14 +306,63 @@
                     <div class="com-item-honor">{{com.honor}}</div>
                     <div class="com-item-des">{{com.description}}</div>
                 </div>
+
+                <div class="editing-panel" v-if="moduleSelect.isCompetition.isEditing">
+                    <div class="com-edit-item" v-for="(comitem, index) in backupResume.competitionExperience.data">
+                        <md-button class="md-fab md-mini md-warn">
+                            <md-icon>close</md-icon>
+                        </md-button>
+                        <div class="row">
+                            <div class="input-field col s12 m6">
+                                <input type="text" v-model="comitem.name" id="com-edit-name">
+                                <label class="active" for="com-edit-name">比赛</label>
+                            </div>
+                            <div class="input-field col s12 m6">
+                                <input type="text" v-model="comitem.honor" id="com-edit-honor">
+                                <label class="active" for="com-edit-honor">奖项</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <input v-model="comitem.location" id="com-edit-localtion"
+                                       placeholder="广州">
+                                <label class="active" for="com-edit-localtion">地点</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <input class="datepicker" type="date" v-model="comitem.date" id="com-edit-date">
+                                <label class="active" for="com-edit-date">日期</label>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <label class="active">比赛详情</label>
+                            <div class="input-field col s12">
+                                <textarea class="materialize-textarea"
+                                          v-model="comitem.description"
+                                          ></textarea>
+
+                            </div>
+                        </div>
+                    </div>
+                    <a class="waves-effect waves-light btn" @click="addItem('competitionExperience', 4)">添加比赛</a>
+                </div>
+
             </div>
+
+
+
+
+
+            <!-------------------Skill 技能爱好------------------->
+
+
             <div class="editor-item" id="skill-editor" v-if="moduleSelect.isSkill.status">
                 <div class="editor-item-title">
                     <h3>技能爱好</h3>
                     <button :class="['btn', {'isEditingBtn': moduleSelect.isSkill.isEditing, 'isSavingBtn': !moduleSelect.isSkill.isEditing}]"
                             @click="editBtnClicked($event, moduleSelect.isSkill.isEditing, 'isSkill', 5)">{{moduleSelect.isSkill.isEditing? '保存':'编辑'}}</button>
                 </div>
-                <div class="skill-item">
+                <div class="skill-item" v-if="!moduleSelect.isSkill.isEditing">
                     <h4 class="skill-title">专业技能</h4>
                     <div class="prof-container">
                         <div class="prof-item" v-for="pro in resume.skills.data.professional">
@@ -174,33 +373,157 @@
                         </div>
                     </div>
                 </div>
-                <div class="skill-item">
+                <div class="skill-item" v-if="!moduleSelect.isSkill.isEditing">
                     <h4 class="skill-title">兴趣爱好</h4>
                     <ul class="skill-item-hobbies">
                         <li v-for="hobby in resume.skills.data.hobbies">{{hobby}}</li>
                     </ul>
                 </div>
+
+                <div class="editing-panel" v-if="moduleSelect.isSkill.isEditing">
+                    <md-tabs md-centered class="md-transparent">
+                        <md-tab md-label="专业技能">
+                            <div v-for="(profitem, index) in backupResume.skills.data.professional">
+                                <md-button class="md-fab md-mini md-warn">
+                                    <md-icon>close</md-icon>
+                                </md-button>
+
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input v-model="profitem.title"
+                                               placeholder="广州">
+                                        <label class="active" >标题</label>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <label class="active">描述</label>
+                                    <div class="input-field col s12">
+                                        <textarea class="materialize-textarea"
+                                                  @change="modifySkillDes($event, index)">{{profitem.description.join('\n')}}
+                                        </textarea>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <a class="waves-effect waves-light btn" @click="addProfItem()">添加专业技能</a>
+
+
+                        </md-tab>
+
+                        <md-tab md-label="语言技能">
+
+                            <div class="row">
+                                <label class="active">描述</label>
+                                <div class="input-field col s12">
+                                        <textarea class="materialize-textarea"
+                                                  v-model="backupResume.skills.data.language.general"></textarea>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <label class="active">CET-4</label>
+                                    <input type="number" placeholder="请输入您的四级分数" v-model="backupResume.skills.data.language['CET-4']">
+                                </div>
+                                <div class="input-field col s6">
+                                    <label class="active">CET-6</label>
+                                    <input type="number" placeholder="请输入您的六级分数" v-model="backupResume.skills.data.language['CET-6']">
+                                </div>
+
+                            </div>
+                        </md-tab>
+
+                        <md-tab md-label="兴趣爱好">
+                            <div class="row">
+                                <label class="active">描述</label>
+                                <div class="input-field col s12">
+                                        <textarea class="materialize-textarea"
+                                                  @change="modifyHobbyDes($event)">{{backupResume.skills.data.hobbies.join('\n')}}
+                                        </textarea>
+                                </div>
+                            </div>
+                        </md-tab>
+                    </md-tabs>
+                </div>
             </div>
+
+
+
+
+
+            <!-------------------Demo 作品展示------------------->
+
             <div class="editor-item" id="demo-editor" v-if="moduleSelect.isDemo.status">
                 <div class="editor-item-title">
                     <h3>作品展示</h3>
                     <button :class="['btn', {'isEditingBtn': moduleSelect.isDemo.isEditing, 'isSavingBtn': !moduleSelect.isDemo.isEditing}]"
-                            @click="editBtnClicked($event, moduleSelect.isDemo.isEditing, 'isDemo', 5)">{{moduleSelect.isDemo.isEditing? '保存':'编辑'}}</button>
+                            @click="editBtnClicked($event, moduleSelect.isDemo.isEditing, 'isDemo', 6)">{{moduleSelect.isDemo.isEditing? '保存':'编辑'}}</button>
                 </div>
-                <div class="demo-item" v-for="demo in resume.workDemo.data">
+                <div class="demo-item"
+                     v-for="demo in resume.workDemo.data"
+                     v-if="!moduleSelect.isDemo.isEditing">
                     <div class="demo-item-name">
                         <span>{{demo.name}}</span>
                         <a :href=demo.link></a>
                     </div>
                     <div class="demo-item-des">{{demo.description}}</div>
                 </div>
+
+                <div class="editing-panel" v-if="moduleSelect.isDemo.isEditing">
+                    <div class="demo-edit-item" v-for="(demoitem, index) in backupResume.workDemo.data">
+                        <md-button class="md-fab md-mini md-warn">
+                            <md-icon>close</md-icon>
+                        </md-button>
+                        <div class="row">
+                            <div class="input-field col s12 m6">
+                                <input v-model="demoitem.name" id="demo-edit-name">
+                                <label class="active" for="demo-edit-name">名称</label>
+                            </div>
+                            <div class="input-field col s12 m6">
+                                <input v-model="demoitem.link" id="demo-edit-link">
+                                <label class="active" for="demo-edit-link">链接</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label class="active">作品详情</label>
+                            <textarea class="materialize-textarea"
+                                      v-model="demoitem.description"
+                                      ></textarea>
+
+                        </div>
+                    </div>
+                    <a class="waves-effect waves-light btn" @click="addItem('workDemo', 6)">添加作品</a>
+                </div>
+
             </div>
+
+
+
+
+
+            <!-------------------Personal Accessment 个人评价------------------->
+
+
             <div class="editor-item" id="pa-editor" v-if="moduleSelect.isPersonalAccessment.status">
                 <div class="editor-item-title">
                     <h3>个人评价</h3>
                     <button :class="['btn', {'isEditingBtn': moduleSelect.isPersonalAccessment.isEditing, 'isSavingBtn': !moduleSelect.isPersonalAccessment.isEditing}]"
                             @click="editBtnClicked($event, moduleSelect.isPersonalAccessment.isEditing, 'isPersonalAccessment', 6)">{{moduleSelect.isPersonalAccessment.isEditing? '保存':'编辑'}}</button>
 
+                </div>
+                <div class="pa-item" v-if="!moduleSelect.isPersonalAccessment.isEditing">
+                    {{resume.personalAccessment}}
+                </div>
+                <div class="editing-panel" v-if="moduleSelect.isPersonalAccessment.isEditing">
+                    <div class="row">
+                        <div class="input-field col s12">
+                                <textarea class="materialize-textarea"
+                                          v-model="backupResume.personalAccessment"
+                                          id="pa-edit"></textarea>
+                            <label class="active" for="pa-edit">个人评价</label>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -212,6 +535,49 @@
     export default{
         data: function(){
             return {
+                emptyItems:[
+                    {},
+                    {
+                        "school":"",
+                        "degree":"",
+                        "enrollYear":'',
+                        "eduYear":'',
+                        "faculty":"",
+                        "major":"",
+                        "gpa":"",
+                        "rank":0,
+                        "courses":"",
+                        "honor":[]
+                    },
+                    {
+                        "company":"",
+                        "job":"",
+                        "location":"",
+                        "startDate":"",
+                        "endDate":"",
+                        "description":[]
+                    },
+                    {
+                        "name":"",
+                        "job":"",
+                        "location":"",
+                        "startDate":"",
+                        "endDate":"",
+                        "description":[]
+                    },
+                    {
+                        "name":"",
+                        "date":"",
+                        "description":"",
+                        "honor":""
+                    },
+                    {},
+                    {
+                        "name":"",
+                        "link":"",
+                        "description":""
+                    }
+                ],
                 resumeID: 'r1',
                 backupResume:{},
                 moduleSelect:{
@@ -296,7 +662,6 @@
                     id: self.resumeID,
                     resume: self.backupResume
                 });
-
             },
 
             editBtnClicked (event, isEditing, module, moduleidx){
@@ -307,21 +672,42 @@
                     this.moduleSelect[module].isEditing = true;
                 }
             },
-            addEducation(){
-                this.backupResume.eduExperience.data.push({
-                    "school":"",
-                    "degree":"",
-                    "enrollYear":'',
-                    "eduYear":'',
-                    "faculty":"",
-                    "major":"",
-                    "gpa":"",
-                    "rank":0,
-                    "courses":"",
-                    "honor":[
+            addItem(module, idx){
+                this.backupResume[module].data.push(this.emptyItems[idx]);
+            },
 
-                    ]
+            modifyDes (e, idx, module){
+                this.backupResume[module].data[idx].description = e.target.value.split('\n').filter((item)=>{
+                    return item != '';
+                });
+            },
+            delDes(idx, desidx, module){
+                this.backupResume[module].data[idx].description.splice(desidx, 1);
+            },
+            addDes(index, module){
+                this.backupResume[module].data[index].description.push({
+                    keyword: '',
+                    detail:"",
                 })
+            },
+            modifySkillDes(e, idx){
+                this.backupResume.skills.data.professional[idx].description = e.target.value.split('\n').filter((item)=>{
+                    return item.trim() != '';
+                });
+            },
+            modifyHobbyDes(e){
+                this.backupResume.skills.data.hobbies = e.target.value.split('\n').filter((item)=>{
+                    return item.trim() != '';
+                });
+            },
+            addProfItem(){
+                this.backupResume.skills.data.professional.push({
+                    "title":"",
+                    "description":[]
+                })
+            },
+            delProItem(idx){
+                this.backupResume.skills.data.professional.splice(idx, 1);
             }
         },
         mounted (){
