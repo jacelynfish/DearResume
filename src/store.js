@@ -117,11 +117,6 @@ const store = new Vuex.Store({
                             "general":"日常熟练使用英文，能流利使用英文进行日常对话，能够使用英文进行专业阅读与写作；曾参与贡献Vue2.0中文版的翻译工作。",
                             "CET-4":632,
                             "CET-6":559,
-                            "other":
-                                {
-                                    "name":"IELTS",
-                                    "level":"7.5"
-                                }
 
                         },
                         "hobbies":["熟练使用Photoshop"]
@@ -190,6 +185,11 @@ const store = new Vuex.Store({
             state.resumeData[id].enName = resume.enName;
             state.resumeData[id].brief = resume.brief;
             state.resumeData[id].contact = resume.contact;
+        },
+        modifyStatus(state, {id, modulename, result}){
+            state.resumeData[id][modulename].status = result;
+            console.log(modulename, state.resumeData[id][modulename].status);
+
         }
     },
     actions:{

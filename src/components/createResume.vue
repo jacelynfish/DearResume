@@ -2,7 +2,7 @@
     .editor-item{
         @each $item in edu, intern, proj, com, skill, demo{
             & .#{$item}-item{
-                margin-left: 8px;
+                margin: 0px;
             }
             & .#{$item}-item:before{
                 display:none;
@@ -31,31 +31,88 @@
 
         }
     }
+    #editor-container{
+        padding: 0 1em;
+        background-color: #eeeeee;
 
+    }
+    .editor-item{
+        margin-top: 1em;
+
+        &:first-child{
+            margin-top: 44px;
+         }
+    }
+
+    #editor-choice{
+        padding: 1em;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+
+    }
+    .md-theme-default.md-sidenav .md-sidenav-content{
+        position: fixed;
+        height: 100vh;
+    }
+    #editor-toolbar.md-toolbar{
+        position: fixed;
+        top:0px;
+        left:0px;
+        right: 0px;
+        z-index: 10000;
+    }
 
 
 </style>
 <template>
     <div id="resume-editor">
-        <div id="editor-popup">
 
-        </div>
-        <div id="editor-title">{{resumeID}}</div>
-        <div id="editor-choice">
-            <md-checkbox v-for="(choice, idx) of Object.keys(moduleSelect)"
-                         :key="idx" name="moduleSelect"
-                         v-model="moduleSelect[choice].status"
-                         class="md-primary">{{moduleSelect[choice].name}}</md-checkbox>
-        </div>
+        <md-toolbar class="md-primary" id="editor-toolbar">
+            <md-button class="md-icon-button">
+                <md-icon>arrow_back</md-icon>
+            </md-button>
+
+            <h2 class="md-title editor-title" style="flex: 1">{{resumeID}}</h2>
+
+            <router-link class="md-raised" :to="{ name:'generate', params: { resumeName: resumeID}}">Add</router-link>
+
+
+            <md-button class="md-icon-button" @click.native="toggleRightSidenav">
+                <md-icon>menu</md-icon>
+            </md-button>
+
+        </md-toolbar>
+
+        <md-sidenav class="md-right" ref="rightSidenav" @open="open('Right')" @close="close('Right')">
+            <md-toolbar>
+                <div class="md-toolbar-container">
+                    <h3 class="md-title">Sidenav content</h3>
+                </div>
+            </md-toolbar>
+
+            <div id="editor-choice">
+                <md-checkbox v-for="(choice, idx) of Object.keys(moduleSelect)"
+                             :key="idx" name="moduleSelect"
+                             v-model="moduleSelect[choice].status"
+                             class="md-primary"
+                             @input="moduleStatusChanged(choice, idx)">{{moduleSelect[choice].name}}</md-checkbox>
+            </div>
+
+        </md-sidenav>
+
+
+
 
         <div id="editor-container">
 
             <!-------------------Basic 基本情况------------------->
 
             <div class="editor-item" id="basic-editor">
-                <md-toolbar class="md-transparent editor-item-title">
+                <md-toolbar class="md-accent editor-item-title">
                     <h3 class="md-title" style="flex: 1">基本情况</h3>
-                    <md-button :class="['md-fab md-mini', {'md-warning': moduleSelect.isBasic.isEditing, 'md-primary': !moduleSelect.isBasic.isEditing}]"
+                    <md-button :class="['md-fab md-mini', {'md-warn': moduleSelect.isBasic.isEditing, 'md-primary': !moduleSelect.isBasic.isEditing}]"
                                @click.native="editBtnClicked($event, moduleSelect.isBasic.isEditing, 'isBasic', 0)">
                         <md-icon v-if="moduleSelect.isBasic.isEditing">save</md-icon>
                         <md-icon v-if="!moduleSelect.isBasic.isEditing">edit</md-icon>
@@ -116,17 +173,17 @@
                             <div class="row">
                                 <div class="input-field col s12 m4">
                                     <i class="material-icons prefix">phone</i>
-                                    <input type="text" v-model="backupResume.brief" placeholder="请输入您的常用手机号码">
+                                    <input type="text" v-model="backupResume.contact.phone" placeholder="请输入您的常用手机号码">
                                     <label class="active">电话</label>
                                 </div>
                                 <div class="input-field col s12 m4">
                                     <i class="material-icons prefix">email</i>
-                                    <input type="text" v-model="backupResume.brief" placeholder="请输入您的常用邮箱">
+                                    <input type="text" v-model="backupResume.contact.phone" placeholder="请输入您的常用邮箱">
                                     <label class="active">邮箱</label>
                                 </div>
                                 <div class="input-field col s12 m4">
                                     <i class="material-icons prefix">link</i>
-                                    <input type="text" v-model="backupResume.brief" placeholder="请输入您的GitHub主页">
+                                    <input type="text" v-model="backupResume.contact.phone" placeholder="请输入您的GitHub主页">
                                     <label class="active">GitHub</label>
                                 </div>
                             </div>
@@ -141,16 +198,14 @@
 
 
 
-
-
             <!-------------------Education 教育背景------------------->
 
 
             <div class="editor-item" id="edu-editor" v-if="moduleSelect.isEducation.status">
 
-                <md-toolbar class="md-transparent editor-item-title">
+                <md-toolbar class="md-accent editor-item-title">
                     <h3 class="md-title" style="flex: 1">教育背景</h3>
-                    <md-button :class="['md-fab md-mini', {'md-warning': moduleSelect.isEducation.isEditing, 'md-primary': !moduleSelect.isEducation.isEditing}]"
+                    <md-button :class="['md-fab md-mini', {'md-warn': moduleSelect.isEducation.isEditing, 'md-primary': !moduleSelect.isEducation.isEditing}]"
                                @click.native="editBtnClicked($event, moduleSelect.isEducation.isEditing, 'isEducation', 1)">
                         <md-icon v-if="moduleSelect.isEducation.isEditing">save</md-icon>
                         <md-icon v-if="!moduleSelect.isEducation.isEditing">edit</md-icon>
@@ -159,19 +214,22 @@
                 </md-toolbar>
 
 
-                <div class="edu-item " v-for="eduitem in resume.eduExperience.data" v-if="!moduleSelect.isEducation.isEditing">
-                    <div class="edu-item-basic">
-                        <span class="edu-school">{{eduitem.school}}</span>
-                        <span class="edu-degree">{{eduitem.degree}}</span>
-                        <span class="edu-gpa">GPA: {{eduitem.gpa}}</span>
-                        <span class="edu-duration">{{eduitem.enrollYear}} - {{eduitem.eduYear}}</span>
-                    </div>
-                    <div class="edu-item-faculty">{{eduitem.faculty}} {{eduitem.major}}</div>
-                    <div class="edu-item-des">{{eduitem.courses}}</div>
-                    <ul class="edu-item-des" v-if="eduitem.description.length">
-                        <li v-for="honor in eduitem.description">{{honor}}</li>
-                    </ul>
-                </div>
+                <md-card class="edu-item" :key="index" v-for="(eduitem, index) in resume.eduExperience.data" v-if="!moduleSelect.isEducation.isEditing">
+                    <md-card-content>
+                        <div class="edu-item-basic">
+                            <span class="edu-school">{{eduitem.school}}</span>
+                            <span class="edu-degree">{{eduitem.degree}}</span>
+                            <span class="edu-gpa">GPA: {{eduitem.gpa}}</span>
+                            <span class="edu-duration">{{eduitem.enrollYear}} - {{eduitem.eduYear}}</span>
+                        </div>
+                        <div class="edu-item-faculty">{{eduitem.faculty}} {{eduitem.major}}</div>
+                        <div class="edu-item-des">{{eduitem.courses}}</div>
+                        <ul class="edu-item-des" v-if="eduitem.description.length">
+                            <li v-for="honor in eduitem.description">{{honor}}</li>
+                        </ul>
+                    </md-card-content>
+
+                </md-card>
 
                 <div class="editing-panel" v-if="moduleSelect.isEducation.isEditing">
 
@@ -264,9 +322,9 @@
 
 
             <div class="editor-item" id="intern-editor" v-if="moduleSelect.isInternship.status">
-                <md-toolbar class="md-transparent editor-item-title">
+                <md-toolbar class="md-accent editor-item-title">
                     <h3 class="md-title" style="flex: 1">实习经历</h3>
-                    <md-button :class="['md-fab md-mini', {'md-warning': moduleSelect.isInternship.isEditing, 'md-primary': !moduleSelect.isInternship.isEditing}]"
+                    <md-button :class="['md-fab md-mini', {'md-warn': moduleSelect.isInternship.isEditing, 'md-primary': !moduleSelect.isInternship.isEditing}]"
                                @click.native="editBtnClicked($event, moduleSelect.isInternship.isEditing, 'isInternship', 2)">
                         <md-icon v-if="moduleSelect.isInternship.isEditing">save</md-icon>
                         <md-icon v-if="!moduleSelect.isInternship.isEditing">edit</md-icon>
@@ -274,22 +332,26 @@
                     </md-button>
                 </md-toolbar>
 
-                <div class="intern-item"
-                     v-for="internitem in resume.internExperience.data"
-                     v-if="!moduleSelect.isInternship.isEditing">
-                    <div class="intern-item-basic">
-                        <span class="intern-company">{{internitem.company}}</span>
-                        <span class="intern-location">{{internitem.location}}</span>
-                        <span class="intern-duration">{{internitem.startDate}} - {{internitem.endDate}}</span>
-                    </div>
-                    <div class="intern-item-job">{{internitem.job}}</div>
-                    <ul class="intern-item-des">
-                        <li class="intern-des-item" v-for="des in internitem.description">
-                            <em>{{des.keyword}}</em>{{des.detail}}
-                        </li>
+                <md-card class="intern-item"
+                     v-for="(internitem, index) in resume.internExperience.data"
+                     v-if="!moduleSelect.isInternship.isEditing"
+                    :key="index">
+                    <md-card-content>
+                        <div class="intern-item-basic">
+                            <span class="intern-company">{{internitem.company}}</span>
+                            <span class="intern-location">{{internitem.location}}</span>
+                            <span class="intern-duration">{{internitem.startDate}} - {{internitem.endDate}}</span>
+                        </div>
+                        <div class="intern-item-job">{{internitem.job}}</div>
+                        <ul class="intern-item-des">
+                            <li class="intern-des-item" v-for="des in internitem.description">
+                                <em>{{des.keyword}}</em>{{des.detail}}
+                            </li>
 
-                    </ul>
-                </div>
+                        </ul>
+                    </md-card-content>
+
+                </md-card>
 
                 <div class="editing-panel" v-if="moduleSelect.isInternship.isEditing">
 
@@ -357,9 +419,9 @@
 
             <div class="editor-item" id="proj-editor" v-if="moduleSelect.isProject.status">
 
-                <md-toolbar class="md-transparent editor-item-title">
+                <md-toolbar class="md-accent editor-item-title">
                     <h3 class="md-title" style="flex: 1">校园/项目经历</h3>
-                    <md-button :class="['md-fab md-mini', {'md-warning': moduleSelect.isProject.isEditing, 'md-primary': !moduleSelect.isProject.isEditing}]"
+                    <md-button :class="['md-fab md-mini', {'md-warn': moduleSelect.isProject.isEditing, 'md-primary': !moduleSelect.isProject.isEditing}]"
                                @click.native="editBtnClicked($event, moduleSelect.isProject.isEditing, 'isProject', 3)">
                         <md-icon v-if="moduleSelect.isProject.isEditing">save</md-icon>
                         <md-icon v-if="!moduleSelect.isProject.isEditing">edit</md-icon>
@@ -367,19 +429,22 @@
                     </md-button>
                 </md-toolbar>
 
-                <div class="proj-item"
-                     v-for="projitem in resume.projectExperience.data"
-                    v-if="!moduleSelect.isProject.isEditing">
-                    <div class="proj-item-basic">
-                        <span class="proj-name">{{projitem.name}}</span>
-                        <span class="proj-location">{{projitem.location}}</span>
-                        <span class="proj-duration">{{projitem.startDate}} - {{projitem.endDate}}</span>
-                    </div>
-                    <div class="proj-item-job">{{projitem.job}}</div>
-                    <ul class="proj-item-des">
-                        <li class="proj-des-item" v-for="des in projitem.description">{{des}}</li>
-                    </ul>
-                </div>
+                <md-card class="proj-item"
+                     v-for="(projitem, index) in resume.projectExperience.data"
+                    v-if="!moduleSelect.isProject.isEditing"
+                    :key="index">
+                    <md-card-content>
+                        <div class="proj-item-basic">
+                            <span class="proj-name">{{projitem.name}}</span>
+                            <span class="proj-location">{{projitem.location}}</span>
+                            <span class="proj-duration">{{projitem.startDate}} - {{projitem.endDate}}</span>
+                        </div>
+                        <div class="proj-item-job">{{projitem.job}}</div>
+                        <ul class="proj-item-des">
+                            <li class="proj-des-item" v-for="des in projitem.description">{{des}}</li>
+                        </ul>
+                    </md-card-content>
+                </md-card>
 
                 <div class="editing-panel" v-if="moduleSelect.isProject.isEditing">
                         <md-card class="edu-edit-item" v-for="(projectitem, index) in backupResume.projectExperience.data" :key="index">
@@ -443,25 +508,28 @@
 
             <div class="editor-item" id="competition-editor" v-if="moduleSelect.isCompetition.status">
 
-                <md-toolbar class="md-transparent editor-item-title">
+                <md-toolbar class="md-accent editor-item-title">
                     <h3 class="md-title" style="flex: 1">比赛经历</h3>
-                    <md-button :class="['md-fab md-mini', {'md-warning': moduleSelect.isCompetition.isEditing, 'md-primary': !moduleSelect.isCompetition.isEditing}]"
+                    <md-button :class="['md-fab md-mini', {'md-warn': moduleSelect.isCompetition.isEditing, 'md-primary': !moduleSelect.isCompetition.isEditing}]"
                                @click.native="editBtnClicked($event, moduleSelect.isCompetition.isEditing, 'isCompetition', 4)">
                         <md-icon v-if="moduleSelect.isCompetition.isEditing">save</md-icon>
                         <md-icon v-if="!moduleSelect.isCompetition.isEditing">edit</md-icon>
 
                     </md-button>
                 </md-toolbar>
-                <div class="com-item"
-                     v-for="com in resume.competitionExperience.data"
-                     v-if="!moduleSelect.isCompetition.isEditing">
-                    <div class="com-item-basic">
-                        <span class="com-name">{{com.name}}</span>
-                        <span class="com-duration">{{com.date}}</span>
-                    </div>
-                    <div class="com-item-honor">{{com.honor}}</div>
-                    <div class="com-item-des">{{com.description}}</div>
-                </div>
+                <md-card class="com-item"
+                     v-for="(com,index) in resume.competitionExperience.data"
+                     v-if="!moduleSelect.isCompetition.isEditing" :key="index">
+                    <md-card-content>
+                        <div class="com-item-basic">
+                            <span class="com-name">{{com.name}}</span>
+                            <span class="com-duration">{{com.date}}</span>
+                        </div>
+                        <div class="com-item-honor">{{com.honor}}</div>
+                        <div class="com-item-des">{{com.description}}</div>
+                    </md-card-content>
+
+                </md-card>
 
                 <div class="editing-panel" v-if="moduleSelect.isCompetition.isEditing">
                         <md-card class="com-edit-item" v-for="(comitem, index) in backupResume.competitionExperience.data":key="index">
@@ -515,9 +583,9 @@
 
             <div class="editor-item" id="skill-editor" v-if="moduleSelect.isSkill.status">
 
-                <md-toolbar class="md-transparent editor-item-title">
+                <md-toolbar class="md-accent editor-item-title">
                     <h3 class="md-title" style="flex: 1">技能爱好</h3>
-                    <md-button :class="['md-fab md-mini', {'md-warning': moduleSelect.isSkill.isEditing, 'md-primary': !moduleSelect.isSkill.isEditing}]"
+                    <md-button :class="['md-fab md-mini', {'md-warn': moduleSelect.isSkill.isEditing, 'md-primary': !moduleSelect.isSkill.isEditing}]"
                                @click.native="editBtnClicked($event, moduleSelect.isSkill.isEditing, 'isSkill', 5)">
                         <md-icon v-if="moduleSelect.isSkill.isEditing">save</md-icon>
                         <md-icon v-if="!moduleSelect.isSkill.isEditing">edit</md-icon>
@@ -525,23 +593,28 @@
                     </md-button>
                 </md-toolbar>
 
-                <div class="skill-item" v-if="!moduleSelect.isSkill.isEditing">
-                    <h4 class="skill-title">专业技能</h4>
-                    <div class="prof-container">
-                        <div class="prof-item" v-for="pro in resume.skills.data.professional">
-                            <div class="prof-item-title">{{pro.title}}</div>
-                            <ul class="skill-item-des">
-                                <li class="prof-des-item" v-for="proDes in pro.description">{{proDes}}</li>
+                <md-card v-if="!moduleSelect.isSkill.isEditing">
+                    <md-card-content>
+                        <div class="skill-item">
+                            <h4 class="skill-title">专业技能</h4>
+                            <div class="prof-container">
+                                <div class="prof-item" v-for="pro in resume.skills.data.professional">
+                                    <div class="prof-item-title">{{pro.title}}</div>
+                                    <ul class="skill-item-des">
+                                        <li class="prof-des-item" v-for="proDes in pro.description">{{proDes}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <h4 class="skill-title">兴趣爱好</h4>
+                            <ul class="skill-item-hobbies">
+                                <li v-for="hobby in resume.skills.data.hobbies">{{hobby}}</li>
                             </ul>
                         </div>
-                    </div>
-                </div>
-                <div class="skill-item" v-if="!moduleSelect.isSkill.isEditing">
-                    <h4 class="skill-title">兴趣爱好</h4>
-                    <ul class="skill-item-hobbies">
-                        <li v-for="hobby in resume.skills.data.hobbies">{{hobby}}</li>
-                    </ul>
-                </div>
+                    </md-card-content>
+                </md-card>
+
 
                 <div class="editing-panel" v-if="moduleSelect.isSkill.isEditing">
                     <md-tabs md-centered class="md-transparent">
@@ -617,24 +690,27 @@
 
             <div class="editor-item" id="demo-editor" v-if="moduleSelect.isDemo.status">
 
-                <md-toolbar class="md-transparent editor-item-title">
+                <md-toolbar class="md-accent editor-item-title">
                     <h3 class="md-title" style="flex: 1">作品展示</h3>
-                    <md-button :class="['md-fab md-mini', {'md-warning': moduleSelect.isDemo.isEditing, 'md-primary': !moduleSelect.isDemo.isEditing}]"
+                    <md-button :class="['md-fab md-mini', {'md-warn': moduleSelect.isDemo.isEditing, 'md-primary': !moduleSelect.isDemo.isEditing}]"
                                @click.native="editBtnClicked($event, moduleSelect.isDemo.isEditing, 'isDemo', 5)">
                         <md-icon v-if="moduleSelect.isDemo.isEditing">save</md-icon>
                         <md-icon v-if="!moduleSelect.isDemo.isEditing">edit</md-icon>
 
                     </md-button>
                 </md-toolbar>
-                <div class="demo-item"
-                     v-for="demo in resume.workDemo.data"
-                     v-if="!moduleSelect.isDemo.isEditing">
-                    <div class="demo-item-name">
-                        <span>{{demo.name}}</span>
-                        <a :href=demo.link></a>
-                    </div>
-                    <div class="demo-item-des">{{demo.description}}</div>
-                </div>
+                <md-card class="demo-item"
+                     v-for="(demo,index) in resume.workDemo.data"
+                     v-if="!moduleSelect.isDemo.isEditing" :key="index">
+                    <md-card-content>
+                        <div class="demo-item-name">
+                            <span>{{demo.name}}</span>
+                            <a :href=demo.link></a>
+                        </div>
+                        <div class="demo-item-des">{{demo.description}}</div>
+
+                    </md-card-content>
+                </md-card>
 
                 <div class="editing-panel" v-if="moduleSelect.isDemo.isEditing">
                         <md-card class="demo-edit-item" v-for="(demoitem, index) in backupResume.workDemo.data" :key="index">
@@ -680,9 +756,9 @@
 
             <div class="editor-item" id="pa-editor" v-if="moduleSelect.isPersonalAccessment.status">
 
-                <md-toolbar class="md-transparent editor-item-title">
+                <md-toolbar class="md-accent editor-item-title">
                     <h3 class="md-title" style="flex: 1">个人评价</h3>
-                    <md-button :class="['md-fab md-mini', {'md-warning': moduleSelect.isPersonalAccessment.isEditing, 'md-primary': !moduleSelect.isPersonalAccessment.isEditing}]"
+                    <md-button :class="['md-fab md-mini', {'md-warn': moduleSelect.isPersonalAccessment.isEditing, 'md-primary': !moduleSelect.isPersonalAccessment.isEditing}]"
                                @click.native="editBtnClicked($event, moduleSelect.isPersonalAccessment.isEditing, 'isPersonalAccessment', 6)">
                         <md-icon v-if="moduleSelect.isPersonalAccessment.isEditing">save</md-icon>
                         <md-icon v-if="!moduleSelect.isPersonalAccessment.isEditing">edit</md-icon>
@@ -690,20 +766,27 @@
                     </md-button>
                 </md-toolbar>
 
-                <md-whiteframe md-elevation="5" class="pa-item" v-if="!moduleSelect.isPersonalAccessment.isEditing">
-                    {{resume.personalAccessment}}
-                </md-whiteframe>
-                <md-whiteframe class="editing-panel"
+                <md-card class="pa-item" v-if="!moduleSelect.isPersonalAccessment.isEditing">
+
+                    <md-card-content>
+                        {{resume.personalAccessment}}
+                    </md-card-content>
+                </md-card>
+
+                <md-card class="editing-panel"
                                v-if="moduleSelect.isPersonalAccessment.isEditing"
-                               md-elevation="5">
-                    <div class="row">
-                        <div class="input-field col s12">
+                               >
+                    <md-card-content>
+                        <div class="row">
+                            <div class="input-field col s12">
                                 <textarea class="materialize-textarea"
                                           v-model="backupResume.personalAccessment"
                                           id="pa-edit"></textarea>
+                            </div>
                         </div>
-                    </div>
-                </md-whiteframe>
+                    </md-card-content>
+
+                </md-card>
             </div>
         </div>
 
@@ -759,6 +842,16 @@
                 ],
                 resumeID: 'r1',
                 backupResume:{},
+                moduleName : [
+                    '',
+                    'eduExperience',
+                    'internExperience',
+                    'projectExperience',
+                    'competitionExperience',
+                    'skills',
+                    'workDemo',
+                    'personalAccessment',
+                ],
                 moduleSelect:{
                     isBasic:{
                         name:'基本情况',
@@ -822,6 +915,7 @@
                 'modifySkill',
                 'modifyDemo',
                 'modifyPersonalAccessment',
+                'modifyStatus'
             ]),
 
             mutationFunc (idx){
@@ -842,7 +936,18 @@
                     resume: self.backupResume
                 });
             },
+            moduleStatusChanged(name, idx){
+                var self = this;
+                console.log(name, self.moduleSelect[name].status);
+                if(idx % 7 != 0) {
+                    self.modifyStatus({
+                        id: self.resumeID,
+                        modulename: self.moduleName[idx],
+                        result : self.moduleSelect[name].status
+                    })
+                }
 
+            },
             editBtnClicked (event, isEditing, module, moduleidx){
                 if(isEditing){
                     this.moduleSelect[module].isEditing = false;

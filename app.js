@@ -14,7 +14,7 @@ Vue.use(VueMaterial);
 
 Vue.material.registerTheme('default', {
     primary: 'teal',
-    accent: 'red',
+    accent: 'white',
     warn: 'red',
     background: 'white'
 })
@@ -27,6 +27,23 @@ Vue.mixin({
             eventHub: eventHub
         }
     },
+    methods:{
+        toggleLeftSidenav() {
+            this.$refs.leftSidenav.toggle();
+        },
+        toggleRightSidenav() {
+            this.$refs.rightSidenav.toggle();
+        },
+        closeRightSidenav() {
+            this.$refs.rightSidenav.close();
+        },
+        open(ref) {
+            console.log('Opened: ' + ref);
+        },
+        close(ref) {
+            console.log('Closed: ' + ref);
+        }
+    }
 });
 
 new Vue({

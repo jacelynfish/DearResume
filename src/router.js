@@ -4,6 +4,7 @@ import Vue from 'vue';
 Vue.use(VueRouter);
 
 import createResume from '../src/components/createResume.vue';
+import resumeTemplate from '../src/components/resumeTemplate.vue'
 
 var router = new VueRouter({
     routes:[
@@ -11,6 +12,16 @@ var router = new VueRouter({
             name: 'create',
             path:'/create_resume',
             component: createResume
+        },
+        {
+            name: 'generate',
+            path:'/generate_resume/:resumeName',
+            props: true,
+            component: resumeTemplate,
+            // beforeEnter(to, from, next){
+            //     console.log(to.params.resumeName);
+            //     next();
+            // }
         }
     ]
 });

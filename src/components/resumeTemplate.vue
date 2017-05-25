@@ -41,13 +41,9 @@
                 <div class="sidebar-lang-item">
                     <span class="lang-title">CET-6</span>
                     <span class="lang-bar" id="cet6-bar"></span>
-                    <span class="lang-level">{{curResume.skills.data.language['CET-4']}}</span>
+                    <span class="lang-level">{{curResume.skills.data.language['CET-6']}}</span>
                 </div>
-                <div class="sidebar-lang-item">
-                    <span class="lang-title">{{curResume.skills.data.language.other.name}}</span>
-                    <span class="lang-bar" id="other-bar"></span>
-                    <span class="lang-level">{{curResume.skills.data.language.other.level}}</span>
-                </div>
+
             </div>
             <div class="sidebar-item footer" id="sidebar-footer">
                     <span>
@@ -184,6 +180,14 @@
                 return this.resumeData[this.resumeName];
             }
         },
-        props:['resumeName'],
+        props:{
+            resumeName: {
+                type: String,
+            }
+        },
+        beforeRouteEnter(to, from, next){
+            console.log(to.params.resumeName);
+            next();
+        }
     }
 </script>
