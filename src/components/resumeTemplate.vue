@@ -2,7 +2,9 @@
     <div id="container">
         <div id="sidebar">
             <div class="sidebar-item" id="sidebar-icon">
-                <div id="sidebar-avatar"></div>
+                <div id="sidebar-avatar">
+                    <img :src="curResume.iconURL == undefined? './static/img/default-icon.png': curResume.iconURL" alt="">
+                </div>
                 <div id="sidebar-name">
                     {{curResume.name}}<span>{{curResume.enName}}</span>
                 </div>
@@ -186,7 +188,6 @@
             }
         },
         beforeRouteEnter(to, from, next){
-            console.log(to.params.resumeName);
             next();
         }
     }

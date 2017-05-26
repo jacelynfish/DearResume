@@ -4,10 +4,113 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
     state: {
+        resumeList: ['default','demo'],
         resumeData:{
-            r1:{
+            default:{
+                "resumeName":'默认简历',
+                "name":"",
+                "iconURL": undefined,
+                "iconFile":null,
+                "enName":"",
+                "brief":"",
+                "contact":{
+                    "phone":"",
+                    "email":"",
+                    "page":""
+                },
+                "eduExperience":{
+                    status: true,
+                    data:[
+                        {
+                            "school":"",
+                            "degree":"",
+                            "enrollYear":"",
+                            "eduYear":"",
+                            "faculty":"",
+                            "major":"",
+                            "gpa":"",
+                            "rank":0,
+                            "courses":"",
+                            "description":[]
+                        }
+                    ]
+                },
+                "internExperience":{
+                    status: true,
+                    data:[
+                        {
+                            "company":"",
+                            "job":"",
+                            "location":"",
+                            "startDate":"",
+                            "endDate":"",
+                            "description":[]
+                        }
+                    ]
+                },
+                "projectExperience":{
+                    status: true,
+                    data:[
+                        {
+                            "name":"",
+                            "job":"",
+                            "location":"",
+                            "startDate":"",
+                            "endDate":"",
+                            "description":[]
+                        }
+                    ]
+                },
+                "competitionExperience":{
+                    status: true,
+                    data: [
+                        {
+                            "name":"",
+                            "date":"",
+                            "description":"",
+                            "honor":""
+                        }
+                    ]
+
+                },
+                "skills":{
+                    "status": true,
+                    data:{
+                        "professional":[
+                            {
+                                "title":"",
+                                "description":[]
+                            }
+                        ],
+                        "language":{
+                            "general":"",
+                            "CET-4":0,
+                            "CET-6":0,
+
+                        },
+                        "hobbies":[]
+                    }
+                },
+                "workDemo":{
+                    status: true,
+                    data:[
+                        {
+                            "name":"",
+                            "link":"",
+                            "description":""
+                        }
+
+                    ]
+                },
+
+                "personalAccessment":""
+
+            },
+            demo:{
                 "resumeName":"我的中文简历",
                 "name":"靳鸿媛",
+                "iconURL": undefined,
+                "iconFile":null,
                 "enName":"Jacelyn",
                 "brief":"Front-end Developer",
                 "contact":{
@@ -152,7 +255,10 @@ const store = new Vuex.Store({
     getters:{
         getResume (state){
             return state.resumeData;
-        }
+        },
+        getResumeList(state){
+            return state.resumeList;
+        },
     },
     mutations:{
         modifyEducation (state, {id, resume}){
@@ -182,14 +288,124 @@ const store = new Vuex.Store({
         },
         modifyBasic (state, {id, resume}){
             state.resumeData[id].name = resume.name;
+            state.resumeData[id].iconURL = resume.iconURL;
+            state.resumeData[id].iconFile = resume.iconFile;
+
             state.resumeData[id].enName = resume.enName;
             state.resumeData[id].brief = resume.brief;
             state.resumeData[id].contact = resume.contact;
         },
         modifyStatus(state, {id, modulename, result}){
             state.resumeData[id][modulename].status = result;
-            console.log(modulename, state.resumeData[id][modulename].status);
 
+        },
+        addNewResume(state,{newID, newName}){
+            state.resumeList.push(newID);
+            state.resumeData[newID] = {
+                "resumeName":newName,
+                "name":"",
+                "iconURL": undefined,
+                "iconFile":null,
+                "enName":"",
+                "brief":"",
+                "contact":{
+                    "phone":"",
+                    "email":"",
+                    "page":""
+                },
+                "eduExperience":{
+                    status: true,
+                    data:[
+                        {
+                            "school":"",
+                            "degree":"",
+                            "enrollYear":"",
+                            "eduYear":"",
+                            "faculty":"",
+                            "major":"",
+                            "gpa":"",
+                            "rank":0,
+                            "courses":"",
+                            "description":[]
+                        }
+                    ]
+                },
+                "internExperience":{
+                    status: true,
+                    data:[
+                        {
+                            "company":"",
+                            "job":"",
+                            "location":"",
+                            "startDate":"",
+                            "endDate":"",
+                            "description":[]
+                        }
+                    ]
+                },
+                "projectExperience":{
+                    status: true,
+                    data:[
+                        {
+                            "name":"",
+                            "job":"",
+                            "location":"",
+                            "startDate":"",
+                            "endDate":"",
+                            "description":[]
+                        }
+                    ]
+                },
+                "competitionExperience":{
+                    status: true,
+                    data: [
+                        {
+                            "name":"",
+                            "date":"",
+                            "description":"",
+                            "honor":""
+                        }
+                    ]
+
+                },
+                "skills":{
+                    "status": true,
+                    data:{
+                        "professional":[
+                            {
+                                "title":"",
+                                "description":[]
+                            }
+                        ],
+                        "language":{
+                            "general":"",
+                            "CET-4":0,
+                            "CET-6":0,
+
+                        },
+                        "hobbies":[]
+                    }
+                },
+                "workDemo":{
+                    status: true,
+                    data:[
+                        {
+                            "name":"",
+                            "link":"",
+                            "description":""
+                        }
+
+                    ]
+                },
+
+                "personalAccessment":""
+
+            }
+        },
+        delResume(state,{idx}){
+            var id = state.resumeList[idx];
+            state.resumeList.splice(idx, 1);
+            state.resumeData[id] = undefined;
         }
     },
     actions:{

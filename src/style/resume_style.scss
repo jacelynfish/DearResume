@@ -124,15 +124,20 @@ $maincolor: #0c9;
 
 #sidebar-icon{
   #sidebar-avatar{
-    background-image: url('../img/avatar.jpg');
-    background-repeat: no-repeat;
-    background-size: $avasize $avasize;
+    //background-image: url('../img/avatar.jpg');
+    //background-repeat: no-repeat;
+    //background-size: $avasize $avasize;
     width: $avasize;
     height: $avasize;
     border-radius: $avasize / 2;
     margin:  1em auto;
     border: 4px solid $maincolor;
     box-shadow: 0px 0px 0px 1px white;
+    img{
+      width: 100%;
+      height: 100%;
+      border-radius: $avasize / 2;
+    }
   }
   #sidebar-name{
     font-size: 1.4em;

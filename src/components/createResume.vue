@@ -40,7 +40,7 @@
         margin-top: 1em;
 
         &:first-child{
-            margin-top: 44px;
+            margin-top: 64px;
          }
     }
 
@@ -63,20 +63,43 @@
         right: 0px;
         z-index: 10000;
     }
-
+    .skill-tab{
+        background-color: white;
+    }
+    .editing-panel {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .md-card .md-card-header .md-card-header-text{
+        margin-left: 1em;
+    }
+    .md-card-media img{
+        height: 100%;
+    }
 
 </style>
 <template>
     <div id="resume-editor">
+        <md-dialog md-open-from="#custom" md-close-to="#custom" ref="dialog1">
+            <md-dialog-title>Dear Resume</md-dialog-title>
+
+            <md-dialog-content>{{dialog1Content}}</md-dialog-content>
+
+            <md-dialog-actions>
+                <md-button class="md-primary" @click.native="closeDialog('dialog1')">Cancel</md-button>
+                <md-button class="md-primary" @click.native="closeDialog('dialog1')">Ok</md-button>
+            </md-dialog-actions>
+        </md-dialog>
 
         <md-toolbar class="md-primary" id="editor-toolbar">
-            <md-button class="md-icon-button">
+            <router-link class="md-icon-button" :to="{ name:'homepage'}">
                 <md-icon>arrow_back</md-icon>
-            </md-button>
+            </router-link>
 
-            <h2 class="md-title editor-title" style="flex: 1">{{resumeID}}</h2>
+            <h2 class="md-title editor-title" style="flex: 1">{{resume.resumeName}}</h2>
 
-            <router-link class="md-raised" :to="{ name:'generate', params: { resumeName: resumeID}}">Add</router-link>
+            <router-link class="md-raised" :to="{ name:'generate', params: { resumeName: resumeID}}">生成简历</router-link>
 
 
             <md-button class="md-icon-button" @click.native="toggleRightSidenav">
@@ -85,7 +108,7 @@
 
         </md-toolbar>
 
-        <md-sidenav class="md-right" ref="rightSidenav" @open="open('Right')" @close="close('Right')">
+        <md-sidenav class="md-right" ref="rightSidenav">
             <md-toolbar>
                 <div class="md-toolbar-container">
                     <h3 class="md-title">Sidenav content</h3>
@@ -122,7 +145,7 @@
                 <md-card class="basic-item" v-if="!moduleSelect.isBasic.isEditing">
                 <md-card-header>
                     <md-card-media>
-                        <img src="../img/avatar.jpg" alt="me">
+                        <img :src="resume.iconURL == undefined? './static/img/default-icon.png':resume.iconURL" alt="me">
                     </md-card-media>
 
                     <md-card-header-text>
@@ -153,6 +176,19 @@
                         <md-card-content>
 
                             <div class="row">
+                                <div class="file-field input-field">
+                                    <div class="btn">
+                                        <span>头像</span>
+                                        <input type="file" @change="showFile($event)">
+                                    </div>
+                                    <div class="file-path-wrapper">
+                                        <input class="file-path validate" placeholder="请上传大小不超过80K的图片格式文件~" type="text">
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="row">
                                 <div class="input-field col s12 m6">
                                     <input type="text" v-model="backupResume.name" >
                                     <label class="active">姓名</label>
@@ -178,12 +214,12 @@
                                 </div>
                                 <div class="input-field col s12 m4">
                                     <i class="material-icons prefix">email</i>
-                                    <input type="text" v-model="backupResume.contact.phone" placeholder="请输入您的常用邮箱">
+                                    <input type="text" v-model="backupResume.contact.email" placeholder="请输入您的常用邮箱">
                                     <label class="active">邮箱</label>
                                 </div>
                                 <div class="input-field col s12 m4">
                                     <i class="material-icons prefix">link</i>
-                                    <input type="text" v-model="backupResume.contact.phone" placeholder="请输入您的GitHub主页">
+                                    <input type="text" v-model="backupResume.contact.page" placeholder="请输入您的GitHub主页">
                                     <label class="active">GitHub</label>
                                 </div>
                             </div>
@@ -310,7 +346,7 @@
                         </md-card>
 
 
-                    <md-button class="md-primary md-raised" @click.native="addItem('eduExperience', 1)">添加教育经历</md-button>
+                    <md-button class=" md-raised" @click.native="addItem('eduExperience', 1)">添加教育经历</md-button>
                 </div>
             </div>
 
@@ -406,7 +442,7 @@
                             </md-card-actions>
                         </md-card>
 
-                    <md-button class="md-primary md-raised" @click.native="addItem('internExperience', 2)">添加实习经历</md-button>
+                    <md-button class="md-raised" @click.native="addItem('internExperience', 2)">添加实习经历</md-button>
                 </div>
             </div>
 
@@ -494,7 +530,7 @@
 
 
 
-                    <md-button class="md-primary md-raised" @click.native="addItem('projectExperience', 3)">添加实习经历</md-button>
+                    <md-button class="md-raised" @click.native="addItem('projectExperience', 3)">添加实习经历</md-button>
                 </div>
 
             </div>
@@ -569,7 +605,7 @@
                             </md-card-actions>
                         </md-card>
 
-                    <md-button class="md-primary md-raised" @click.native="addItem('competitionExperience', 4)">添加比赛</md-button>
+                    <md-button class="md-raised" @click.native="addItem('competitionExperience', 4)">添加比赛</md-button>
                 </div>
 
             </div>
@@ -617,8 +653,8 @@
 
 
                 <div class="editing-panel" v-if="moduleSelect.isSkill.isEditing">
-                    <md-tabs md-centered class="md-transparent">
-                        <md-tab md-label="专业技能">
+                    <md-tabs md-centered class="md-accent">
+                        <md-tab md-label="专业技能" class="skill-tab">
                             <div v-for="(profitem, index) in backupResume.skills.data.professional">
 
                                 <div class="row">
@@ -646,7 +682,7 @@
 
                         </md-tab>
 
-                        <md-tab md-label="语言技能">
+                        <md-tab md-label="语言技能" class="skill-tab">
 
                             <div class="row">
                                 <label class="active">描述</label>
@@ -668,7 +704,7 @@
                             </div>
                         </md-tab>
 
-                        <md-tab md-label="兴趣爱好">
+                        <md-tab md-label="兴趣爱好" class="skill-tab">
                             <div class="row">
                                 <label class="active">描述</label>
                                 <div class="input-field col s12">
@@ -742,7 +778,7 @@
                         </md-card>
 
 
-                    <md-button class="md-primary md-raised" @click.native="addItem('workDemo', 6)">添加作品</md-button>
+                    <md-button class="md-raised" @click.native="addItem('workDemo', 6)">添加作品</md-button>
                 </div>
 
             </div>
@@ -795,8 +831,15 @@
 <script>
     import {mapGetters, mapMutations} from 'vuex';
     export default{
+        props:{
+            resumeID:{
+                type:String
+            }
+        },
         data: function(){
+
             return {
+                dialog1Content:'',
                 emptyItems:[
                     {},
                     {
@@ -840,7 +883,7 @@
                         "description":""
                     }
                 ],
-                resumeID: 'r1',
+
                 backupResume:{},
                 moduleName : [
                     '',
@@ -902,7 +945,7 @@
                 resumeData: 'getResume'
             }),
             resume (){
-                return this.resumeData['r1'];
+                return this.resumeData[this.resumeID];
             }
         },
         methods:{
@@ -936,9 +979,24 @@
                     resume: self.backupResume
                 });
             },
+            showFile(e){
+              var file = e.target.files[0];
+              if(/image\/.+/.test(file.type) &&file.size <= 81920){
+                    this.backupResume.iconURL = window.URL.createObjectURL(file);
+                    this.backupResume.iconFile = file;
+              }else{
+                  e.target.value = null;
+                  if(!/image\/.+/.test(file.type)){
+                      this.dialog1Content = '文件应为图片格式~';
+                      this.openDialog('dialog1');
+                  }else if(file.size > 81920){
+                      this.dialog1Content = '图片大小应不超过80K~';
+                      this.openDialog('dialog1');
+                  }
+              }
+            },
             moduleStatusChanged(name, idx){
                 var self = this;
-                console.log(name, self.moduleSelect[name].status);
                 if(idx % 7 != 0) {
                     self.modifyStatus({
                         id: self.resumeID,

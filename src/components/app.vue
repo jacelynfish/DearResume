@@ -1,12 +1,11 @@
 <template>
     <div>
-        <!--<resume-template resumeName="r1"></resume-template>-->
-        <router-link :to="{ name:'create' }">create</router-link>
         <router-view></router-view>
     </div>
 </template>
 <script>
     import resumeTemplate from './resumeTemplate.vue';
+    import personalCenter from './personalCenter.vue';
 
     import {mapGetters, mapMutations} from 'vuex';
     export default{
@@ -14,7 +13,8 @@
             return {}
         },
         components:{
-            resumeTemplate
+            resumeTemplate,
+            personalCenter
         },
         computed:{
 

@@ -28,6 +28,7 @@ Vue.mixin({
         }
     },
     methods:{
+        //for swiper
         toggleLeftSidenav() {
             this.$refs.leftSidenav.toggle();
         },
@@ -37,11 +38,21 @@ Vue.mixin({
         closeRightSidenav() {
             this.$refs.rightSidenav.close();
         },
-        open(ref) {
-            console.log('Opened: ' + ref);
+
+        //for dialog
+        openDialog(ref) {
+            this.$refs[ref].open();
         },
-        close(ref) {
-            console.log('Closed: ' + ref);
+        closeDialog(ref) {
+            this.$refs[ref].close();
+        },
+        onDialogClose(type){
+            if(type == 'ok'){
+
+                this.eventHub.$emit('delConfirmChanged', true);
+            }else{
+                this.eventHub.$emit('delConfirmChanged', false);
+            }
         }
     }
 });

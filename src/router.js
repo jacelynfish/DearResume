@@ -4,14 +4,18 @@ import Vue from 'vue';
 Vue.use(VueRouter);
 
 import createResume from '../src/components/createResume.vue';
-import resumeTemplate from '../src/components/resumeTemplate.vue'
+import resumeTemplate from '../src/components/resumeTemplate.vue';
+import personalCenter from '../src/components/personalCenter.vue';
+
 
 var router = new VueRouter({
     routes:[
+
         {
             name: 'create',
-            path:'/create_resume',
-            component: createResume
+            path:'/create_resume/:resumeID',
+            component: createResume,
+            props: true
         },
         {
             name: 'generate',
@@ -22,6 +26,11 @@ var router = new VueRouter({
             //     console.log(to.params.resumeName);
             //     next();
             // }
+        },
+        {
+            name:'homepage',
+            path: '/',
+            component: personalCenter
         }
     ]
 });
