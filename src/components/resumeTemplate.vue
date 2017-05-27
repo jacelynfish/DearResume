@@ -224,11 +224,12 @@
             },
             generateImg(){
 
+
                 var self = this, rimg = document.getElementById('resumeimg');
                 var resumeContainer = document.getElementById('container'),
                     resumeHidden = document.getElementById('resumehidden');
 
-
+                resumeContainer.scrollIntoView();
                 resumeContainer.classList.add('pdfContainer');
 
                 var width = resumeContainer.clientWidth; //获取dom 宽度
@@ -239,7 +240,7 @@
                 var scaleBy = self.getPixelRatio(context);
 
                 canvas.width = width * scaleBy;
-                canvas.height = (height+offsetTop) * scaleBy + 30;
+                canvas.height = height * scaleBy + 30;
                 canvas.getContext("2d").scale(scaleBy,scaleBy);
                 var opts = {
                     useCORS:true,//允许加载跨域的图片
