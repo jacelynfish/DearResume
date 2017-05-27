@@ -13,6 +13,9 @@
         z-index: 1000;
         overflow: hidden;
         text-align: center;
+        .md-toolbar{
+            z-index:4
+        }
 
     }
     #welcome-header.welcomeHeaderActive{
