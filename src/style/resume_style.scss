@@ -500,3 +500,12 @@ $maincolor: #0c9;
   font-weight: bold;
   font-size: 1.2em;
 }
+.top-toolbar{
+  z-index: 7;
+}
+#resume-editor {
+  .md-sidenav .md-sidenav-content{
+    z-index: 1000 ;
+  }
+
+}

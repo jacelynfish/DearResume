@@ -98,7 +98,7 @@
             </md-dialog-actions>
         </md-dialog>
 
-        <md-toolbar class="md-primary" id="editor-toolbar">
+        <md-toolbar class="md-primary top-toolbar" id="editor-toolbar">
             <router-link class="md-icon-button" :to="{ name:'homepage'}">
                 <md-icon>arrow_back</md-icon>
             </router-link>

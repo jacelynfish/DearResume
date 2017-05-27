@@ -5,7 +5,7 @@
         <div id="resumeimg">
         </div>
 
-        <md-toolbar class="md-primary" id="editor-toolbar">
+        <md-toolbar class="md-primary top-toolbar" id="editor-toolbar">
             <router-link class="md-icon-button" :to="{ name:'create', params:{resumeID: resumeName}}">
                 <md-icon>arrow_back</md-icon>
             </router-link>
