@@ -70,7 +70,7 @@ module.exports = {
 			},
         	{
         		test: /\.(png|jpg|gif|svg)$/,
-      		 	loader: 'url-loader?limit=8192&name=static/img/[name].[ext]?[hash]',
+      		 	loader: 'url-loader?limit=140000&name=static/img/[name].[ext]?[hash]',
       		},
 			{
 				test: /\.(html|tpl)$/,

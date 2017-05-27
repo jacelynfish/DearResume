@@ -5,5 +5,4 @@ node_modules/
 *.jpg
 .idea/
 *.otf
-!public/static/img/*.png
-!public/static/img/*.jpg
+public/
