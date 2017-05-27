@@ -10,33 +10,31 @@
                 ref="del-confirm-dialog">
         </md-dialog-confirm>
 
+        <md-list>
+            <md-list-item v-for="(ritem, index) in resumeList" :key="index">
+                <md-icon>move_to_inbox</md-icon>
+                <span>{{resumeData[ritem].resumeName}}</span>
+                <md-list-expand>
+                    <md-list>
+                        <md-list-item class="md-inset">
+                            <span>编辑简历</span>
+                            <md-button class="md-icon-button md-list-action" @click.native="editResume(ritem)">
+                                <md-icon>edit</md-icon>
+                            </md-button>
+                        </md-list-item>
+                        <md-list-item class="md-inset">
+                            <span>删除简历</span>
+                            <md-button class="md-warning md-icon-button md-list-action" @click.native="delResumeItem(index)">
+                                <md-icon>close</md-icon>
+                            </md-button>
+                        </md-list-item>
 
-            <md-list>
-                <md-list-item v-for="(ritem, index) in resumeList" :key="index">
-                    <md-icon>move_to_inbox</md-icon>
-                    <span>{{resumeData[ritem].resumeName}}</span>
+                    </md-list>
+                </md-list-expand>
+            </md-list-item>
 
-                    <md-list-expand>
-                        <md-list>
-                            <md-list-item class="md-inset">
-                                <span>编辑简历</span>
-                                <md-button class="md-icon-button md-list-action" @click.native="editResume(ritem)">
-                                    <md-icon>edit</md-icon>
-                                </md-button>
-                            </md-list-item>
-                            <md-list-item class="md-inset">
-                                <span>删除简历</span>
-                                <md-button class="md-warning md-icon-button md-list-action" @click.native="delResumeItem(index)">
-                                    <md-icon>close</md-icon>
-                                </md-button>
-                            </md-list-item>
-
-                        </md-list>
-                    </md-list-expand>
-                </md-list-item>
-
-            </md-list>
-
+        </md-list>
+        
     </div>
 </template>
 <script>
@@ -47,8 +45,6 @@
                 curDelIdx: -1,
                 confirm:{
                     content:'',
-                    ok:'',
-                    cancel:''
                 }
             }
         },

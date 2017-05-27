@@ -1,7 +1,13 @@
 <style lang="sass">
     .editor-item{
+        margin-top: 1em;
+
+        &:first-child{
+             margin-top: 64px;
+         }
         @each $item in edu, intern, proj, com, skill, demo{
             & .#{$item}-item{
+
                 margin: 0px;
             }
             & .#{$item}-item:before{
@@ -20,8 +26,7 @@
               }
              span{
                   color: #555;
-              }
-
+             }
         }
         .sidebar-contact-item:before{
             display: none;
@@ -35,13 +40,6 @@
         padding: 0 1em;
         background-color: #eeeeee;
 
-    }
-    .editor-item{
-        margin-top: 1em;
-
-        &:first-child{
-            margin-top: 64px;
-         }
     }
 
     #editor-choice{
@@ -70,6 +68,13 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+
+        @each $item in edu, intern, proj, com, skill, demo {
+            & .#{$item}-edit-item {
+                width: 100%;
+                margin: 0px;
+            }
+        }
     }
     .md-card .md-card-header .md-card-header-text{
         margin-left: 1em;
@@ -883,7 +888,6 @@
                         "description":""
                     }
                 ],
-
                 backupResume:{},
                 moduleName : [
                     '',
