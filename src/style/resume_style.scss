@@ -58,6 +58,14 @@ $maincolor: #0c9;
     background-color: white;
     width: 1024px;
     padding: 20px 5%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    #sidebar{
+      width: 40%;
+    }
   }
 }
 #sidebar{
@@ -74,8 +82,6 @@ $maincolor: #0c9;
     width: 100%;
 
   }
-
-
 
 }
 #main{

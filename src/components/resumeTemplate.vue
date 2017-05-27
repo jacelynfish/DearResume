@@ -182,9 +182,17 @@
 </style>
 <script>
     import {mapGetters} from 'vuex';
-    import html2canvas from 'html2canvas';
-    import canvas2image from '../util/canvas2image';
+    var html2canvas, canvas2image;
     export default{
+        mounted(){
+            import('../util/canvas2image').then(Canvas2Image => {
+                canvas2image = Canvas2Image.default;
+            });
+
+            import('html2canvas').then(Html2Canvas=>{
+                html2canvas = Html2Canvas;
+            });
+        },
         data: function(){
             return {
                 isPDF: false,
@@ -248,11 +256,9 @@
                 var resumeRatio = canvas.width/canvas.height,
                     a4Ratio = 595 / 842;
                 if(resumeRatio> a4Ratio){
-                    console.log('big');
                     a4SizeWidth = 595;
                     a4SizeHeight = canvas.height * 595 / canvas.width ;
                 }else{
-                    console.log('small')
                     a4SizeWidth = resumeRatio * 842;
                     a4SizeHeight = 842;
                 }

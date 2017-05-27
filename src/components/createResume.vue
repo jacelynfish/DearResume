@@ -59,7 +59,7 @@
         top:0px;
         left:0px;
         right: 0px;
-        z-index: 10000;
+        /*z-index: 1000;*/
     }
     .skill-tab{
         background-color: white;
@@ -82,6 +82,7 @@
     .md-card-media img{
         height: 100%;
     }
+
 
 </style>
 <template>

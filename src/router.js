@@ -4,8 +4,9 @@ import Vue from 'vue';
 Vue.use(VueRouter);
 
 import createResume from '../src/components/createResume.vue';
-import resumeTemplate from '../src/components/resumeTemplate.vue';
+// import resumeTemplate from '../src/components/resumeTemplate.vue';
 import personalCenter from '../src/components/personalCenter.vue';
+
 
 
 var router = new VueRouter({
@@ -21,11 +22,12 @@ var router = new VueRouter({
             name: 'generate',
             path:'/generate_resume/:resumeName',
             props: true,
-            component: resumeTemplate,
-            // beforeEnter(to, from, next){
-            //     console.log(to.params.resumeName);
-            //     next();
-            // }
+            component: (resolve)=>{
+                require.ensure(['../src/components/resumeTemplate.vue'], ()=>{
+                    resolve(require('../src/components/resumeTemplate.vue'));
+                },'resume-template')
+            },
+
         },
         {
             name:'homepage',

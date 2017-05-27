@@ -4,6 +4,7 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
     state: {
+        listActive: false,
         resumeList: ['default','demo'],
         resumeData:{
             default:{
@@ -259,8 +260,14 @@ const store = new Vuex.Store({
         getResumeList(state){
             return state.resumeList;
         },
+        getListActive(state){
+            return state.listActive;
+        }
     },
     mutations:{
+        setListActive(state){
+            state.listActive = true;
+        },
         modifyEducation (state, {id, resume}){
             state.resumeData[id].eduExperience = resume.eduExperience;
         },
@@ -406,6 +413,9 @@ const store = new Vuex.Store({
             var id = state.resumeList[idx];
             state.resumeList.splice(idx, 1);
             state.resumeData[id] = undefined;
+        },
+        newNameResume(state, {id, newName}){
+            state.resumeData[id].resumeName = newName;
         }
     },
     actions:{

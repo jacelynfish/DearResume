@@ -9,7 +9,7 @@ extractCSS = new ExtractTextPlugin("style.css");
 module.exports = {
 	entry: {
 		main: "./app.js",
-		vendor:["vue"],
+		vendor:["vue",'vuex','vue-router','vue-material'],
 	},
 	output:{
 		path: path.resolve(__dirname, './public'),
@@ -23,7 +23,7 @@ module.exports = {
 				loader:"babel-loader",
 				options:{
 					"presets": ["env"],
-					"plugins": ["transform-object-rest-spread"]
+					"plugins": ["transform-object-rest-spread", 'syntax-dynamic-import']
 				},
 				exclude : /node_modules/
 			},
@@ -50,7 +50,7 @@ module.exports = {
 						camelCase: true
 					},
 					loaders:{
-						js: 'babel-loader?{"presets":["es2017"], "plugins": ["transform-object-rest-spread", "transform-vue-jsx"]}',
+						js: 'babel-loader?{"presets":["es2017"], "plugins": ["transform-object-rest-spread", "transform-vue-jsx", "syntax-dynamic-import"]}',
 
 						css: extractCSS.extract({
 							use: 'css-loader',

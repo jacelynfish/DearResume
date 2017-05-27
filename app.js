@@ -53,6 +53,21 @@ Vue.mixin({
             }else{
                 this.eventHub.$emit('delConfirmChanged', false);
             }
+        },
+        onAddResumeClose(type){
+            if(type == 'ok'){
+
+                this.eventHub.$emit('addPromptChanged', true);
+            }else{
+                this.eventHub.$emit('addPromptChanged', false);
+            }
+        },
+        onRenameResumeClose(type){
+            if(type == 'ok'){
+                this.eventHub.$emit('renamePromptChanged', true);
+            }else{
+                this.eventHub.$emit('renamePromptChanged', false);
+            }
         }
     }
 });
